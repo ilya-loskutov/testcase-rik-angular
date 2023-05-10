@@ -1,0 +1,9 @@
+@use "sass:map";
+
+$media-breakpoints: (
+    first: 321px,
+    second: 769px,
+    third: 1025px,
+    fourth: 1141px,
+    fifth: 1601px
+);
