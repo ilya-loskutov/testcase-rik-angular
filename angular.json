@@ -30,7 +30,7 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles/styles.scss"
+              "src/styles/index.scss"
             ],
             "stylePreprocessorOptions": {
               "includePaths": [
@@ -98,7 +98,7 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles/styles.scss"
+              "src/styles/index.scss"
             ],
             "stylePreprocessorOptions": {
               "includePaths": [
