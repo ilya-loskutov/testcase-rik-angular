@@ -1,0 +1,13 @@
+.header {
+    height: 56px;
+
+    &__toolbar {
+        justify-content: flex-end;
+
+        background: linear-gradient(264.78deg, rgba(209, 67, 15, 0.5) 0%, rgba(209, 15, 51, 0.5) 100%), #DA2032;
+    }
+
+    &__menu-icon {
+        color: white;
+    }
+}
