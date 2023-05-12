@@ -10,12 +10,14 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { AccountActionsComponent } from './components/account-actions/account-actions.component';
+import { FilterComponent } from './components/filter/filter.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    AccountActionsComponent
+    AccountActionsComponent,
+    FilterComponent
   ],
   imports: [
     BrowserModule,
