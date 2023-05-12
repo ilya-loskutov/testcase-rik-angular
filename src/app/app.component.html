@@ -1,5 +1,5 @@
-<div class="app">
-    <mat-grid-list cols="1" rowHeight="56px">
+<div *ngIf="gridValues$ | async as gridValues" class="app">
+    <mat-grid-list [cols]="gridValues.cols" [rowHeight]="gridValues.rowHeight">
         <mat-grid-tile>
             <app-header class="app__header"></app-header>
         </mat-grid-tile>
