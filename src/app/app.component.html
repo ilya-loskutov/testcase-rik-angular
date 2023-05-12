@@ -1,8 +1,4 @@
-<div *ngIf="gridValues$ | async as gridValues" class="app">
-    <mat-grid-list [cols]="gridValues.cols" [rowHeight]="gridValues.rowHeight">
-        <mat-grid-tile>
-            <app-header class="app__header"></app-header>
-        </mat-grid-tile>
-    </mat-grid-list>
-    <app-account-actions></app-account-actions>
+<div class="app">
+    <app-header class="app__header"></app-header>
+    <app-account-actions class="app__account-actions"></app-account-actions>
 </div>
