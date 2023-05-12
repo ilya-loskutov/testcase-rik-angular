@@ -8,7 +8,7 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatGridListModule } from '@angular/material/grid-list';
 
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './header/header.component';
+import { HeaderComponent } from './components/header/header.component';
 import { AccountActionsComponent } from './components/account-actions/account-actions.component';
 
 @NgModule({
