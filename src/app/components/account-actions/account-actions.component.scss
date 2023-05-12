@@ -1,0 +1,75 @@
+.account-actions {
+    padding-top: 32px;
+    padding-bottom: 24px;
+    padding-left: 16px;
+    padding-right: 16px;
+
+    background-color: #F5F6F7;
+
+    &__back {
+        display: flex;
+        gap: 8px;
+
+        margin-bottom: 32px;
+
+        color: #666F78;
+    }
+
+    &__back-description {
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 24px;
+    }
+
+    &__header {
+        font-weight: 700;
+        font-size: 22px;
+        line-height: 30px;
+        font-feature-settings: 'tnum' on, 'lnum' on;
+
+        color: #282828;
+    }
+
+    &__account-options {
+        display: flex;
+        flex-wrap: wrap;
+        column-gap: 16px;
+        row-gap: 8px;
+
+        margin-top: 24px;
+        margin-bottom: 8px;
+    }
+
+    &__account-option-button {
+        width: 136px;
+        height: 40px;
+
+        border-radius: 8px;
+        background-color: #DA2032;
+    }
+
+    &__account-option-button-description {
+        font-weight: 300;
+        font-size: 14px;
+        line-height: 18px;
+
+        color: white;
+    }
+
+    &__show-filter-button {
+        width: 136px;
+        height: 40px;
+
+        background-color: rgba(102, 111, 120, 0.3);
+
+        border-radius: 8px;
+    }
+
+    &__show-filter-button-description {
+        font-weight: 300;
+        font-size: 14px;
+        line-height: 18px;
+
+        color: #666F78;
+    }
+}
