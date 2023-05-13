@@ -1,1 +1,119 @@
-<p>filter works!</p>
+<div class="filter">
+    <h3 class="filter__header">Фильтр</h3>
+    <form [formGroup]="filterForm" class="filter__form">
+        <ng-container *ngIf="filterForm.controls.login as loginControl">
+            <p class="filter__form-paragraph"
+                [ngClass]="{'filter__form-paragraph_invalid': filterFormStateMatcher.isErrorState(loginControl)}">
+                <mat-label class="filter__form-label">Логин</mat-label>
+                <mat-form-field appearance="outline">
+                    <input matInput formControlName="login" [errorStateMatcher]="filterFormStateMatcher" type="text"
+                        class="filter__form-input">
+                    <button (click)="loginControl.setValue(null)" matSuffix mat-icon-button
+                        class="filter__form-input-cancel-button">
+                        <mat-icon svgIcon="cancel" class="filter__form-input-icon">cancel</mat-icon>
+                    </button>
+                    <mat-error *ngIf="filterFormStateMatcher.isErrorState(loginControl)">
+                        Недопустимые символы
+                    </mat-error>
+                </mat-form-field>
+            </p>
+        </ng-container>
+        <ng-container *ngIf="filterForm.controls.email as emailControl">
+            <p class="filter__form-paragraph"
+                [ngClass]="{'filter__form-paragraph_invalid': filterFormStateMatcher.isErrorState(emailControl)}">
+                <mat-label class="filter__form-label">E-mail</mat-label>
+                <mat-form-field appearance="outline">
+                    <input matInput formControlName="email" [errorStateMatcher]="filterFormStateMatcher" type="email"
+                        class="filter__form-input">
+                    <button (click)="emailControl.setValue(null)" matSuffix mat-icon-button
+                        class="filter__form-input-cancel-button">
+                        <mat-icon svgIcon="cancel" class="filter__form-input-icon">cancel</mat-icon>
+                    </button>
+                    <mat-error *ngIf="filterFormStateMatcher.isErrorState(emailControl)">
+                        Невалидный email
+                    </mat-error>
+                </mat-form-field>
+            </p>
+        </ng-container>
+        <ng-container *ngIf="filterForm.controls.phoneNumber as phoneNumberControl">
+            <p class="filter__form-paragraph"
+                [ngClass]="{'filter__form-paragraph_invalid': filterFormStateMatcher.isErrorState(phoneNumberControl)}">
+                <mat-label class="filter__form-label">Телефон</mat-label>
+                <mat-form-field appearance="outline">
+                    <span matPrefix>+&nbsp;</span>
+                    <input matInput formControlName="phoneNumber" [errorStateMatcher]="filterFormStateMatcher"
+                        type="tel" maxlength="11" class="filter__form-input">
+                    <button (click)="phoneNumberControl.setValue(null)" matSuffix mat-icon-button
+                        class="filter__form-input-cancel-button">
+                        <mat-icon svgIcon="cancel" class="filter__form-input-icon">cancel</mat-icon>
+                    </button>
+                    <mat-error *ngIf="filterFormStateMatcher.isErrorState(phoneNumberControl)">
+                        Невалидный телефон
+                    </mat-error>
+                </mat-form-field>
+            </p>
+        </ng-container>
+        <ng-container *ngIf="filterForm.controls.creationDate as creationDateControl">
+            <p class="filter__form-paragraph"
+                [ngClass]="{'filter__form-paragraph_invalid': filterFormStateMatcher.isErrorState(creationDateControl)}">
+                <mat-label class="filter__form-label">Дата создания</mat-label>
+                <mat-form-field appearance="outline">
+                    <input matInput [matDatepicker]="picker" formControlName="creationDate"
+                        [errorStateMatcher]="filterFormStateMatcher" class="filter__form-input">
+                    <mat-datepicker-toggle matIconSuffix [for]="picker">
+                        <mat-icon matDatepickerToggleIcon svgIcon="calendar"
+                            class="filter__form-input-icon">calendar</mat-icon>
+                    </mat-datepicker-toggle>
+                    <mat-datepicker #picker [startAt]="startDate"></mat-datepicker>
+                    <mat-error *ngIf="filterFormStateMatcher.isErrorState(creationDateControl)">
+                        Невалидная дата
+                    </mat-error>
+                </mat-form-field>
+            </p>
+        </ng-container>
+        <ng-container *ngIf="filterForm.controls.updatedDate as updatedDateControl">
+            <p class="filter__form-paragraph"
+                [ngClass]="{'filter__form-paragraph_invalid': filterFormStateMatcher.isErrorState(updatedDateControl)}">
+                <mat-label class="filter__form-label">Дата изменения</mat-label>
+                <mat-form-field appearance="outline">
+                    <input matInput [matDatepicker]="picker" formControlName="updatedDate"
+                        [errorStateMatcher]="filterFormStateMatcher" class="filter__form-input">
+                    <mat-datepicker-toggle matIconSuffix [for]="picker">
+                        <mat-icon matDatepickerToggleIcon svgIcon="calendar"
+                            class="filter__form-input-icon">calendar</mat-icon>
+                    </mat-datepicker-toggle>
+                    <mat-datepicker #picker [startAt]="startDate"></mat-datepicker>
+                    <mat-error *ngIf="filterFormStateMatcher.isErrorState(updatedDateControl)">
+                        Невалидная дата
+                    </mat-error>
+                </mat-form-field>
+            </p>
+        </ng-container>
+        <ng-container *ngIf="filterForm.controls.role as roleControl">
+            <p class="filter__form-paragraph"
+                [ngClass]="{'filter__form-paragraph_invalid': filterFormStateMatcher.isErrorState(roleControl)}">
+                <mat-label class="filter__form-label">Роль</mat-label>
+                <mat-form-field appearance="outline">
+                    <mat-select formControlName="role">
+                        <mat-option [value]="null">-</mat-option>
+                        <mat-option value="admin">Администратор</mat-option>
+                        <mat-option value="user">Пользователь</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </p>
+        </ng-container>
+        <ng-container *ngIf="filterForm.controls.status as statusControl">
+            <p class="filter__form-paragraph"
+                [ngClass]="{'filter__form-paragraph_invalid': filterFormStateMatcher.isErrorState(statusControl)}">
+                <mat-label class="filter__form-label">Статус</mat-label>
+                <mat-form-field appearance="outline">
+                    <mat-select formControlName="status">
+                        <mat-option [value]="null">-</mat-option>
+                        <mat-option value="active">Активен</mat-option>
+                        <mat-option value="blocked">Заблокирован</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </p>
+        </ng-container>
+    </form>
+</div>
