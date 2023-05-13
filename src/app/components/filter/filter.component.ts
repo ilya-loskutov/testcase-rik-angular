@@ -10,7 +10,6 @@ import { FilterFormStateMatcher } from 'src/app/models/entry-form-state-matcher'
   selector: 'app-filter',
   templateUrl: './filter.component.html',
   styleUrls: ['./filter.component.scss'],
-  encapsulation: ViewEncapsulation.None,
 })
 export class FilterComponent {
   filterFormStateMatcher = new FilterFormStateMatcher();
