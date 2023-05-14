@@ -17,13 +17,15 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { AccountActionsComponent } from './components/account-actions/account-actions.component';
 import { FilterComponent } from './components/filter/filter.component';
+import { UserListComponent } from './components/user-list/user-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     AccountActionsComponent,
-    FilterComponent
+    FilterComponent,
+    UserListComponent
   ],
   imports: [
     BrowserModule,
