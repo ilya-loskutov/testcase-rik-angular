@@ -1,15 +1,34 @@
 export class User {
     constructor(
         public readonly id: number,
-        public readonly name: string,
+        public readonly login: string,
         public readonly email: string,
         public readonly phoneNumber: number,
         public readonly creationDate: Date,
         public readonly updatedDate: Date,
         public readonly role: 'user' | 'admin',
         public status: 'active' | 'blocked',
-        public readonly hasDigitalSignature: boolean
+        public readonly hasDigitalSignature: boolean,
+        public isSelected: boolean
     ) { }
+}
+
+export class UserPage {
+    constructor(
+        public offset: number,
+        public total: number,
+        public users: User[]
+    ) { }
+}
+
+export abstract class UserComparator {
+    abstract compare(userA: User, userB: User): 1 | -1;
+}
+
+export class LoginComparator extends UserComparator {
+    compare(userA: User, userB: User): 1 | -1 {
+        return userA.login > userB.login ? 1 : -1;
+    }
 }
 
 export type ServerUser = {
