@@ -4,7 +4,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry } from '@angular/material/icon';
 
 import { FilterForm } from 'src/app/models/filter-form';
-import { FilterFormStateMatcher } from 'src/app/models/entry-form-state-matcher';
+import { FilterFormStateMatcher } from 'src/app/models/filter-form-state-matcher';
 
 @Component({
   selector: 'app-filter',
