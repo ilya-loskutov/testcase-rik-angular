@@ -21,21 +21,20 @@ export class UserService {
   private requestUserPage(): void {
     const currentUserPage$: Observable<UserPage> = from(this._httpClient.getUsers(userConfig.serverUrl))
       .pipe(
-        map(this._userFactory.mapServerUserPageToUserPage)
+        map((serverUserPage: ServerUserPage) => this._userFactory.mapServerUserPageToUserPage(serverUserPage))
       );
     this._currentUserPage$ = combineLatest([currentUserPage$, this._currentUserFilter$, this._currentUserComparator$])
       .pipe(
-        map(this.mapUserPage)
-      );
+        map(([currentUserPage, currentUserFilter, currentUserComparator]) => this.mapUserPage(currentUserPage, currentUserFilter, currentUserComparator)
+        )
+      )
   }
 
   private _currentUserPage$!: Observable<UserPage>;
   private _currentUserFilter$: BehaviorSubject<Partial<User>> = new BehaviorSubject({});
   private _currentUserComparator$: BehaviorSubject<UserComparator> = new BehaviorSubject(new LoginComparator());
 
-  private mapUserPage(
-    [userPage, currentUserFilter, currentUserComparator]: [UserPage, Partial<User>, UserComparator]
-  ): UserPage {
+  private mapUserPage(userPage: UserPage, currentUserFilter: Partial<User>, currentUserComparator: UserComparator): UserPage {
     let users = userPage.users;
     users = this.filterUsers(users, currentUserFilter)
       .sort(currentUserComparator.compare);

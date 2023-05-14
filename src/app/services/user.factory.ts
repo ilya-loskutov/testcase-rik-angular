@@ -8,13 +8,10 @@ import { ServerUserPage, UserPage, UserComparator, ServerUser, ServerUserData, U
 export class UserFactory {
     mapServerUserPageToUserPage(serverUserPage: ServerUserPage): UserPage {
         const users = serverUserPage.users
-            .map(serverUser => this.mapServerUserToUser(
-                serverUser,
-                serverUserPage.data.find(serverUserData => serverUserData.user_id === serverUser.id) as ServerUserData)
-            )
+            .map(serverUser => this.mapServerUserToUser(serverUser, serverUserPage.data.find(serverUserData => serverUserData.user_id === serverUser.id) as ServerUserData))
         return new UserPage(
             this.calculateUserListOffset(serverUserPage.page.size, serverUserPage.page.current),
-            this.calculateUserTotalNumber(serverUserPage.page.size, serverUserPage.page.total),
+            this.calculateUsersTotalNumber(serverUserPage.page.size, serverUserPage.page.total),
             users
         );
     }
@@ -38,7 +35,7 @@ export class UserFactory {
         return (currentPageNumber - 1) * pageSize;
     }
 
-    private calculateUserTotalNumber(pageSize: number, totalPageNumber: number): number {
+    private calculateUsersTotalNumber(pageSize: number, totalPageNumber: number): number {
         return pageSize * totalPageNumber; // may be less
     }
 
