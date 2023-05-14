@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 
-import { Observable, BehaviorSubject, map, combineLatest } from 'rxjs';
+import { Observable, BehaviorSubject, map, combineLatest, from } from 'rxjs';
 
 import { User, UserPage, ServerUserPage, UserComparator, LoginComparator } from '../models/user';
 import { UserFactory } from './user.factory';
 import { userConfig } from '../config/user.config';
+import { DummyHttpClientService } from './dummy-http-client.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,13 +13,13 @@ import { userConfig } from '../config/user.config';
 export class UserService {
   constructor(
     private _userFactory: UserFactory,
-    private _httpClient: HttpClient
+    private _httpClient: DummyHttpClientService
   ) {
     this.requestUserPage();
   }
 
   private requestUserPage(): void {
-    const currentUserPage$: Observable<UserPage> = this._httpClient.get<ServerUserPage>(userConfig.serverUrl)
+    const currentUserPage$: Observable<UserPage> = from(this._httpClient.getUsers(userConfig.serverUrl))
       .pipe(
         map(this._userFactory.mapServerUserPageToUserPage)
       );
