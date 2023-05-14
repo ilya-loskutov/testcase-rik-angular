@@ -55,4 +55,12 @@ export class UserService {
   get currentUserPage$(): Observable<UserPage> {
     return this._currentUserPage$;
   }
+
+  sortUserList(userComparator: UserComparator): void {
+    this._currentUserComparator$.next(userComparator);
+  }
+
+  filterUserList(userFilter: Partial<User>): void {
+    this._currentUserFilter$.next(userFilter);
+  }
 }
