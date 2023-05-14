@@ -21,13 +21,23 @@ export class UserService {
   private requestUserPage(): void {
     const currentUserPage$: Observable<UserPage> = from(this._httpClient.getUsers(userConfig.serverUrl))
       .pipe(
-        map((serverUserPage: ServerUserPage) => this._userFactory.mapServerUserPageToUserPage(serverUserPage))
+        map((serverUserPage: ServerUserPage) => this._userFactory.mapServerUserPageToUserPage(serverUserPage)),
+        map((userPage: UserPage) => this.markPreviouslyBlockedUsers(userPage))
       );
     this._currentUserPage$ = combineLatest([currentUserPage$, this._currentUserFilter$, this._currentUserComparator$])
       .pipe(
         map(([currentUserPage, currentUserFilter, currentUserComparator]) => this.mapUserPage(currentUserPage, currentUserFilter, currentUserComparator)
         )
       )
+  }
+
+  private markPreviouslyBlockedUsers(userPage: UserPage): UserPage {
+    userPage.users.forEach(user => {
+      if (localStorage.getItem(user.id.toString())) {
+        user.status = 'blocked';
+      }
+    });
+    return userPage;
   }
 
   private _currentUserPage$!: Observable<UserPage>;
@@ -61,5 +71,15 @@ export class UserService {
 
   filterUserList(userFilter: Partial<User>): void {
     this._currentUserFilter$.next(userFilter);
+  }
+
+  blockUser(user: User): void {
+    user.toggleStatus();
+    localStorage.setItem(user.id.toString(), 'blocked');
+  }
+
+  unblockUser(user: User): void {
+    user.toggleStatus();
+    localStorage.removeItem(user.id.toString());
   }
 }

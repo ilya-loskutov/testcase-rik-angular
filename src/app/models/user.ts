@@ -11,6 +11,12 @@ export class User {
         public readonly hasDigitalSignature: boolean,
         public isSelected: boolean
     ) { }
+
+    toggleStatus(): void {
+        this.status === 'active' ?
+            this.status = 'blocked' :
+            this.status = 'active';
+    }
 }
 
 export class UserPage {
