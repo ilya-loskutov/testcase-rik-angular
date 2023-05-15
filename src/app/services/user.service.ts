@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Observable, BehaviorSubject, map, combineLatest, from } from 'rxjs';
+import { Observable, BehaviorSubject, map, combineLatest, switchMap, from } from 'rxjs';
 
 import { User, UserPage, ServerUserPage, UserComparator, LoginComparator } from '../models/user';
 import { UserFactory } from './user.factory';
@@ -24,11 +24,11 @@ export class UserService {
         map((serverUserPage: ServerUserPage) => this._userFactory.mapServerUserPageToUserPage(serverUserPage)),
         map((userPage: UserPage) => this.markPreviouslyBlockedUsers(userPage))
       );
-    this._currentUserPage$ = combineLatest([currentUserPage$, this._currentUserFilter$, this._currentUserComparator$])
+    this._currentUserPage$ = combineLatest([currentUserPage$, this._currentUserFilter$, this._currentUserComparator$, this._changedUser$])
       .pipe(
-        map(([currentUserPage, currentUserFilter, currentUserComparator]) => this.mapUserPage(currentUserPage, currentUserFilter, currentUserComparator)
+        map(([currentUserPage, currentUserFilter, currentUserComparator, changedUser]) => this.mapUserPage(currentUserPage, currentUserFilter, currentUserComparator, changedUser)
         )
-      )
+      );
   }
 
   private markPreviouslyBlockedUsers(userPage: UserPage): UserPage {
@@ -43,9 +43,18 @@ export class UserService {
   private _currentUserPage$!: Observable<UserPage>;
   private _currentUserFilter$: BehaviorSubject<Partial<User>> = new BehaviorSubject({});
   private _currentUserComparator$: BehaviorSubject<UserComparator> = new BehaviorSubject(new LoginComparator());
+  private _changedUser$: BehaviorSubject<User | undefined> = new BehaviorSubject<User | undefined>(undefined);
 
-  private mapUserPage(userPage: UserPage, currentUserFilter: Partial<User>, currentUserComparator: UserComparator): UserPage {
+  private mapUserPage(
+    userPage: UserPage,
+    currentUserFilter: Partial<User>,
+    currentUserComparator: UserComparator,
+    changedUser: User | undefined): UserPage {
     let users = userPage.users;
+    if (changedUser) {
+      let userIndex = users.findIndex(user => changedUser.id === user.id);
+      users[userIndex] = changedUser;
+    }
     users = this.filterUsers(users, currentUserFilter)
       .sort(currentUserComparator.compare);
     userPage.users = users;
@@ -65,6 +74,10 @@ export class UserService {
     return this._currentUserPage$;
   }
 
+  selectUser(user: User): void {
+    this._changedUser$.next(user);
+  }
+
   sortUserList(userComparator: UserComparator): void {
     this._currentUserComparator$.next(userComparator);
   }
@@ -73,13 +86,19 @@ export class UserService {
     this._currentUserFilter$.next(userFilter);
   }
 
-  blockUser(user: User): void {
-    user.toggleStatus();
-    localStorage.setItem(user.id.toString(), 'blocked');
+  blockUsers(users: User[]): void {
+    users.forEach(user => {
+      user.toggleStatus();
+      localStorage.setItem(user.id.toString(), 'blocked');
+      this._changedUser$.next(user);
+    });
   }
 
-  unblockUser(user: User): void {
-    user.toggleStatus();
-    localStorage.removeItem(user.id.toString());
+  unblockUsers(users: User[]): void {
+    users.forEach(user => {
+      user.toggleStatus();
+      localStorage.removeItem(user.id.toString());
+      this._changedUser$.next(user);
+    });
   }
 }

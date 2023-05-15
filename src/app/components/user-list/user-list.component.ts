@@ -45,4 +45,8 @@ export class UserListComponent {
   getSelectedUsersNumber(users: User[]): number {
     return users.filter(user => user.isSelected).length;
   }
+
+  onSelectUserCheckboxClick(user: User): void {
+    this.userService.selectUser(user)
+  }
 }

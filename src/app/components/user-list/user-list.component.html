@@ -39,7 +39,9 @@
                 <tr>
                     <th class="user-list__user-table-header">Логин</th>
                     <td class="user-list__user-table-data">
-                        <mat-checkbox [color]="'primary'" class="user-list__select-user-checkbox"></mat-checkbox>
+                        <mat-checkbox [color]="'primary'" [(ngModel)]="user.isSelected"
+                            (change)="onSelectUserCheckboxClick(user)"
+                            class="user-list__select-user-checkbox"></mat-checkbox>
                         {{user.login}}
                     </td>
                 </tr>
