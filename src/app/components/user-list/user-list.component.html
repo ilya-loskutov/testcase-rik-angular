@@ -1,1 +1,67 @@
-<p>user-list works!</p>
+<div *ngIf="(currentUserPage$ | async) as currentUserPage" class="user-list">
+    <div class="user-list__user-tables">
+        <ng-container *ngFor="let user of currentUserPage.users">
+            <table class="user-list__user-table">
+                <tr>
+                    <th class="user-list__user-table-header">Действия</th>
+                    <td class="user-list__user-table-data">
+                        <button mat-icon-button>
+                            <mat-icon svgIcon="ic_setting">ic_setting</mat-icon>
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <th class="user-list__user-table-header">Логин</th>
+                    <td class="user-list__user-table-data">
+                        <mat-checkbox [color]="'primary'" class="user-list__select-user-checkbox"></mat-checkbox>
+                        {{user.login}}
+                    </td>
+                </tr>
+                <tr>
+                    <th class="user-list__user-table-header">Email</th>
+                    <td class="user-list__user-table-data">
+                        {{user.email}}
+                    </td>
+                </tr>
+                <tr>
+                    <th class="user-list__user-table-header">Телефон</th>
+                    <td class="user-list__user-table-data">
+                        {{user.phoneNumber | phoneNumber}}
+                    </td>
+                </tr>
+                <tr>
+                    <th class="user-list__user-table-header">Роль</th>
+                    <td class="user-list__user-table-data">
+                        {{user.role === 'admin' ? 'Администратор' : 'Пользователь'}}
+                    </td>
+                </tr>
+                <tr>
+                    <th class="user-list__user-table-header">Дата создания</th>
+                    <td class="user-list__user-table-data">
+                        {{user.creationDate | date: 'dd.MM.YYYY'}}
+                    </td>
+                </tr>
+                <tr>
+                    <th class="user-list__user-table-header">Дата изменения</th>
+                    <td class="user-list__user-table-data">
+                        {{user.updatedDate | date: 'dd.MM.YYYY'}}
+                    </td>
+                </tr>
+                <tr>
+                    <th class="user-list__user-table-header">Наличие ЭП</th>
+                    <td class="user-list__user-table-data"
+                        [ngClass]="{'user-list__user-table-data_success': user.hasDigitalSignature, 'user-list__user-table-data_error': !user.hasDigitalSignature}">
+                        <mat-icon *ngIf="user.hasDigitalSignature" svgIcon="success">success</mat-icon>
+                        <mat-icon *ngIf="!user.hasDigitalSignature" svgIcon="cancel">cancel</mat-icon>
+                    </td>
+                </tr>
+                <tr>
+                    <th class="user-list__user-table-header">Статус</th>
+                    <td class="user-list__user-table-data"
+                        [ngClass]="{'user-list__user-table-data_success': user.status === 'active', 'user-list__user-table-data_error': user.status === 'blocked'}">
+                        {{user.status === 'active' ? 'Активен' : 'Заблокирован'}}
+                    </td>
+                </tr>
+            </table>
+        </ng-container>
+    </div>

@@ -9,15 +9,17 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSelectModule } from '@angular/material/select';
+import { MatTableModule } from '@angular/material/table';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MAT_DATE_LOCALE, DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
 import { MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from '@angular/material-moment-adapter';
-
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { AccountActionsComponent } from './components/account-actions/account-actions.component';
 import { FilterComponent } from './components/filter/filter.component';
 import { UserListComponent } from './components/user-list/user-list.component';
+import { PhoneNumberPipe } from './services/phone-number.pipe';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,8 @@ import { UserListComponent } from './components/user-list/user-list.component';
     HeaderComponent,
     AccountActionsComponent,
     FilterComponent,
-    UserListComponent
+    UserListComponent,
+    PhoneNumberPipe
   ],
   imports: [
     BrowserModule,
@@ -37,7 +40,9 @@ import { UserListComponent } from './components/user-list/user-list.component';
     MatButtonModule,
     MatInputModule,
     MatDatepickerModule,
-    MatSelectModule
+    MatSelectModule,
+    MatTableModule,
+    MatCheckboxModule
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'ru-RU' },
