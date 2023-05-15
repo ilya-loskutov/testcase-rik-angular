@@ -37,6 +37,18 @@ export class LoginComparator extends UserComparator {
     }
 }
 
+export class RoleComparator extends UserComparator {
+    compare(userA: User, userB: User): 1 | -1 {
+        return userA.role === 'admin' ? -1 : 1;
+    }
+}
+
+export class StatusComparator extends UserComparator {
+    compare(userA: User, userB: User): 1 | -1 {
+        return userA.status === 'blocked' ? 1 : -1;
+    }
+}
+
 export type ServerUser = {
     readonly id: number,
     readonly name: string,

@@ -49,4 +49,9 @@ export class UserListComponent {
   onSelectUserCheckboxClick(user: User): void {
     this.userService.selectUser(user)
   }
+
+  changeSortOrder(property: any): void {
+    const sortOrderSelectInput = document.getElementById("sort-order-settings-input") as HTMLSelectElement;
+    this.userService.sortUserList(sortOrderSelectInput.value)
+  }
 }

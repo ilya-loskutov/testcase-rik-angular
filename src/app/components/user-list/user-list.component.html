@@ -19,8 +19,11 @@
             </p>
             <p class="user-list__sort-order-settings">
                 <span>Сортировать по</span>
-                <select class="user-list__sort-order-settings-input">
+                <select (change)="changeSortOrder($event)" id="sort-order-settings-input"
+                    class="user-list__sort-order-settings-input">
                     <option value="login">Логину</option>
+                    <option value="role">Роли</option>
+                    <option value="status">Статусу</option>
                 </select>
             </p>
         </div>

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { Observable, BehaviorSubject, map, combineLatest, switchMap, from } from 'rxjs';
 
-import { User, UserPage, ServerUserPage, UserComparator, LoginComparator } from '../models/user';
+import { User, UserPage, ServerUserPage, UserComparator, LoginComparator, RoleComparator, StatusComparator } from '../models/user';
 import { UserFactory } from './user.factory';
 import { userConfig } from '../config/user.config';
 import { DummyHttpClientService } from './dummy-http-client.service';
@@ -90,8 +90,22 @@ export class UserService {
     this._changedUser$.next(user);
   }
 
-  sortUserList(userComparator: UserComparator): void {
-    this._currentUserComparator$.next(userComparator);
+  sortUserList(property: string): void {
+    let userComparator: UserComparator | undefined;
+    switch (property) {
+      case 'login':
+        userComparator = new LoginComparator();
+        break;
+      case 'role':
+        userComparator = new RoleComparator();
+        break;
+      case 'status':
+        userComparator = new StatusComparator();
+        break;
+      default:
+        throw new Error();
+    }
+    this._currentUserComparator$.next(userComparator as UserComparator);
   }
 
   filterUserList(userFilter: Partial<User>): void {
