@@ -1,8 +1,67 @@
 .user-list {
-    padding-top: 16px;
-    padding-bottom: 62px;
-
     background-color: #FFFFFF;
+
+    &__settings {
+        padding-top: 16px;
+        padding-bottom: 62px;
+        padding-left: 16px;
+        padding-right: 16px;
+
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+
+        color: #666F78;
+    }
+
+    &__page-size-settings {
+        align-self: flex-end;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        font-weight: 300;
+        font-size: 14px;
+        line-height: 18px;
+        font-feature-settings: 'tnum' on, 'lnum' on;
+
+        color: #282828;
+    }
+
+    &__page-size-settings-input {
+        width: 65px;
+        height: 24px;
+
+        padding-top: 2px;
+        padding-bottom: 4px;
+        padding-left: 8px;
+        padding-right: 15px;
+
+        color: #666F78;
+    }
+
+    &__sort-order-settings {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    &__sort-order-settings-input {
+        width: 145px;
+        height: 36px;
+
+        padding-top: 8px;
+        padding-bottom: 8px;
+        padding-right: 55px;
+        padding-left: 10px;
+
+        font-weight: 300;
+        font-size: 16px;
+        line-height: 18px;
+        font-feature-settings: 'tnum' on, 'lnum' on;
+
+        color: #666F78;
+    }
 
     &__user-tables {
         display: flex;

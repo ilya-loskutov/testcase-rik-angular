@@ -1,4 +1,30 @@
 <div *ngIf="(currentUserPage$ | async) as currentUserPage" class="user-list">
+    <ng-container [ngTemplateOutlet]="userListSettings">
+    </ng-container>
+    <ng-template #userListSettings>
+        <div class="user-list__settings">
+            <p class="user-list__page-size-settings">
+                <span>Отображать</span>
+                <select class="user-list__page-size-settings-input">
+                    <option value="20">20</option>
+                </select>
+                <span>записей</span>
+            </p>
+            <p class="user-list__current-page-size">
+                {{getFirstUserNumber(currentUserPage)}} - {{getLastUserNumber(currentUserPage)}} из
+                {{getTotalUserNumber(currentUserPage)}}
+            </p>
+            <p class="user-list__selected-users-number">
+                Количество выбранных записей: {{getSelectedUsersNumber(currentUserPage.users)}}
+            </p>
+            <p class="user-list__sort-order-settings">
+                <span>Сортировать по</span>
+                <select class="user-list__sort-order-settings-input">
+                    <option value="login">Логину</option>
+                </select>
+            </p>
+        </div>
+    </ng-template>
     <div class="user-list__user-tables">
         <ng-container *ngFor="let user of currentUserPage.users">
             <table class="user-list__user-table">
@@ -65,3 +91,6 @@
             </table>
         </ng-container>
     </div>
+    <ng-container [ngTemplateOutlet]="userListSettings">
+    </ng-container>
+</div>

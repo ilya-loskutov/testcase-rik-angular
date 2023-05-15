@@ -5,7 +5,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry } from '@angular/material/icon';
 
 import { UserService } from 'src/app/services/user.service';
-import { UserPage } from 'src/app/models/user';
+import { UserPage, User } from 'src/app/models/user';
 
 @Component({
   selector: 'app-user-list',
@@ -25,4 +25,24 @@ export class UserListComponent {
   }
 
   currentUserPage$: Observable<UserPage>;
+
+  getFirstUserNumber(currentUserPage: UserPage): number {
+    return currentUserPage.users.length === 0 ?
+      0 :
+      currentUserPage.offset + 1;
+  }
+
+  getLastUserNumber(currentUserPage: UserPage): number {
+    return currentUserPage.users.length === 0 ?
+      0 :
+      currentUserPage.offset + currentUserPage.users.length;
+  }
+
+  getTotalUserNumber(currentUserPage: UserPage): number {
+    return 135;
+  }
+
+  getSelectedUsersNumber(users: User[]): number {
+    return users.filter(user => user.isSelected).length;
+  }
 }
