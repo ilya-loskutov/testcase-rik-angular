@@ -66,6 +66,18 @@ export class UserService {
       if (currentUserFilter.login && user.login !== currentUserFilter.login) {
         return false;
       }
+      if (currentUserFilter.email && user.email !== currentUserFilter.email) {
+        return false;
+      }
+      if (currentUserFilter.phoneNumber && user.phoneNumber !== currentUserFilter.phoneNumber) {
+        return false;
+      }
+      if (currentUserFilter.role && user.role !== currentUserFilter.role) {
+        return false;
+      }
+      if (currentUserFilter.status && user.status !== currentUserFilter.status) {
+        return false;
+      }
       return true;
     });
   }

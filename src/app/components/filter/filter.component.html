@@ -1,6 +1,6 @@
 <div class="filter">
     <h3 class="filter__header">Фильтр</h3>
-    <form [formGroup]="filterForm" class="filter__form">
+    <form [formGroup]="filterForm" (ngSubmit)="onFilterFormSubmit()" class="filter__form">
         <ng-container *ngIf="filterForm.controls.login as loginControl">
             <p class="filter__form-paragraph"
                 [ngClass]="{'filter__form-paragraph_invalid': filterFormStateMatcher.isErrorState(loginControl)}">
@@ -8,7 +8,7 @@
                 <mat-form-field appearance="outline">
                     <input matInput formControlName="login" [errorStateMatcher]="filterFormStateMatcher" type="text"
                         class="filter__form-input">
-                    <button (click)="loginControl.setValue(null)" matSuffix mat-icon-button
+                    <button (click)="loginControl.setValue(undefined)" matSuffix mat-icon-button
                         class="filter__form-input-cancel-button">
                         <mat-icon svgIcon="cancel" class="filter__form-input-icon">cancel</mat-icon>
                     </button>
@@ -25,7 +25,7 @@
                 <mat-form-field appearance="outline">
                     <input matInput formControlName="email" [errorStateMatcher]="filterFormStateMatcher" type="email"
                         class="filter__form-input">
-                    <button (click)="emailControl.setValue(null)" matSuffix mat-icon-button
+                    <button (click)="emailControl.setValue(undefined)" matSuffix mat-icon-button
                         class="filter__form-input-cancel-button">
                         <mat-icon svgIcon="cancel" class="filter__form-input-icon">cancel</mat-icon>
                     </button>
@@ -43,7 +43,7 @@
                     <span matPrefix>+&nbsp;</span>
                     <input matInput formControlName="phoneNumber" [errorStateMatcher]="filterFormStateMatcher"
                         type="tel" maxlength="11" class="filter__form-input">
-                    <button (click)="phoneNumberControl.setValue(null)" matSuffix mat-icon-button
+                    <button (click)="phoneNumberControl.setValue(undefined)" matSuffix mat-icon-button
                         class="filter__form-input-cancel-button">
                         <mat-icon svgIcon="cancel" class="filter__form-input-icon">cancel</mat-icon>
                     </button>
@@ -95,7 +95,7 @@
                 <mat-label class="filter__form-label">Роль</mat-label>
                 <mat-form-field appearance="outline">
                     <mat-select formControlName="role">
-                        <mat-option [value]="null">-</mat-option>
+                        <mat-option [value]="undefined">-</mat-option>
                         <mat-option value="admin">Администратор</mat-option>
                         <mat-option value="user">Пользователь</mat-option>
                     </mat-select>
@@ -108,7 +108,7 @@
                 <mat-label class="filter__form-label">Статус</mat-label>
                 <mat-form-field appearance="outline">
                     <mat-select formControlName="status">
-                        <mat-option [value]="null">-</mat-option>
+                        <mat-option [value]="undefined">-</mat-option>
                         <mat-option value="active">Активен</mat-option>
                         <mat-option value="blocked">Заблокирован</mat-option>
                     </mat-select>

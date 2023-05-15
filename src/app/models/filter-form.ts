@@ -1,11 +1,11 @@
 import { FormGroup, FormControl } from "@angular/forms";
 
 export type FilterForm = FormGroup<{
-    login: FormControl<string | null>,
-    email: FormControl<string | null>,
-    phoneNumber: FormControl<string | null>,
-    creationDate: FormControl<string | null>,
-    updatedDate: FormControl<string | null>,
-    role: FormControl<'admin' | 'user' | null>,
-    status: FormControl<'active' | 'blocked' | null>
+    login: FormControl<string | undefined>,
+    email: FormControl<string | undefined>,
+    phoneNumber: FormControl<number | undefined>,
+    creationDate: FormControl<Date | undefined>,
+    updatedDate: FormControl<Date | undefined>,
+    role: FormControl<'admin' | 'user' | undefined>,
+    status: FormControl<'active' | 'blocked' | undefined>
 }>;
