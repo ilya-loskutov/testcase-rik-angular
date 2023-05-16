@@ -40,7 +40,6 @@ export class FilterComponent {
 
   onFilterFormSubmit(): void {
     if (this.filterForm.valid) {
-      console.log(this.filterForm.value)
       this.userService.filterUserList(this.filterForm.value);
     }
   }
