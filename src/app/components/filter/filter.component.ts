@@ -3,6 +3,7 @@ import { FormBuilder, Validators, ValidationErrors } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry } from '@angular/material/icon';
 
+import { User } from 'src/app/models/user';
 import { FilterForm } from 'src/app/models/filter-form';
 import { FilterFormStateMatcher } from 'src/app/models/filter-form-state-matcher';
 import { UserService } from 'src/app/services/user.service';
@@ -28,7 +29,7 @@ export class FilterComponent {
     this.filterForm = formBuilder.nonNullable.group({
       login: [undefined as string | undefined, [Validators.pattern('[a-zA-Z]+')]],
       email: [undefined as string | undefined, [Validators.email]],
-      phoneNumber: [undefined as number | undefined, [Validators.pattern('[- +()0-9]{11,11}')]],
+      phoneNumber: [undefined as string | undefined, [Validators.pattern('[- +()0-9]{11,11}')]],
       creationDate: [undefined as undefined | Date],
       updatedDate: [undefined as undefined | Date],
       role: [undefined as 'admin' | 'user' | undefined, [Validators.pattern('(admin|user)')]],
@@ -40,10 +41,11 @@ export class FilterComponent {
 
   onFilterFormSubmit(): void {
     if (this.filterForm.valid) {
-      const filter = this.filterForm.value;
-      if (filter.phoneNumber) {
-        filter.phoneNumber = +filter.phoneNumber;
-      }
+      const filter: Partial<User> = Object.assign({}, {
+        ...this.filterForm.value,
+        phoneNumber: this.filterForm.controls.phoneNumber.value === undefined ? undefined : +this.filterForm.controls.phoneNumber.value
+      });
+      console.log(filter)
       this.userService.filterUserList(filter);
     }
   }
