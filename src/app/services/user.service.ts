@@ -49,16 +49,18 @@ export class UserService {
     userPage: UserPage,
     currentUserFilter: Partial<User>,
     currentUserComparator: UserComparator,
-    changedUser: User | undefined): UserPage {
-    let users = userPage.users;
+    changedUser: User | undefined
+  ): UserPage {
+    const nextUserPage: UserPage = Object.assign({}, userPage);
+    let users = nextUserPage.users;
     if (changedUser) {
       let userIndex = users.findIndex(user => changedUser.id === user.id);
       users[userIndex] = changedUser;
     }
     users = this.filterUsers(users, currentUserFilter)
       .sort(currentUserComparator.compare);
-    userPage.users = users;
-    return userPage;
+    nextUserPage.users = users;
+    return nextUserPage;
   }
 
   private filterUsers(users: User[], currentUserFilter: Partial<User>): User[] {
