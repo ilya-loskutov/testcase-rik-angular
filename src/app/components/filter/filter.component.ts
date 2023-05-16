@@ -40,7 +40,11 @@ export class FilterComponent {
 
   onFilterFormSubmit(): void {
     if (this.filterForm.valid) {
-      this.userService.filterUserList(this.filterForm.value);
+      const filter = this.filterForm.value;
+      if (filter.phoneNumber) {
+        filter.phoneNumber = +filter.phoneNumber;
+      }
+      this.userService.filterUserList(filter);
     }
   }
 }
